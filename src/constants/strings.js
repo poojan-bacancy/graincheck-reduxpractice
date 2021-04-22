@@ -28,6 +28,8 @@ export default {
         loginButtonLabel : 'Log In',
         isNewUser : 'New User? ',
         signup : 'SignUp',
+        alertBoxTitle : 'An Error Occurred!!',
+        alertBoxButton : 'Okay',
         errors : {
             require : 'This field is required',
             invalidEmail : 'Invalid Email',

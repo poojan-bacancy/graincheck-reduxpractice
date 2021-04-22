@@ -13,13 +13,29 @@ const FormInput = (props) => {
         setIsPasswordVisible(prevState => !prevState)
     }
 
+    const isEyeIconVisible = () => {
+        return props.fieldType === "password" 
+        ?<ShowHidePassComponent isVisible={isPasswordVisible} onPress={eyePressHandler} />
+        :null 
+    }
+
+    const isErrorVisible = () => {
+        return touched && error 
+            ? <Text style={styles.errorText}>{error}</Text>
+            : null
+    }
+
+    const isForgotPassLinkVisible = () => {
+        return props.fieldType === "password" 
+        ? <Text style={styles.forgotPassText} onPress={props.onForgetPassPress}>{props.forgotPassText}</Text>
+        : null
+    }
+
     return (
         <View style={styles.formInputContainer} >
             <Text style={styles.inputLabel}>{props.label}</Text>
             <View style={styles.textInputContainer}>
-                
                 <TextInput
-                    // {...props.inputProps}
                     style={styles.input} 
                     value={props.input.value}
                     secureTextEntry={ props.fieldType === 'password' && !isPasswordVisible }
@@ -29,19 +45,12 @@ const FormInput = (props) => {
                     onFocus={props.input.onFocus}
                     onBlur={props.input.onBlur}
                 />
-                
-                {props.fieldType === "password"
-                    && 
-                <ShowHidePassComponent isVisible={isPasswordVisible} onPress={eyePressHandler} />}
-                
+                {isEyeIconVisible()}                
             </View>
 
-            {touched && error ? <Text style={styles.errorText}>{error}</Text> : undefined}
+            {isErrorVisible()}
 
-            {props.fieldType === "password" 
-                && 
-            <Text style={styles.forgotPassText} onPress={props.onForgetPassPress}>{props.forgotPassText}</Text>
-            }
+            {isForgotPassLinkVisible()}
         </View>
     )
 }

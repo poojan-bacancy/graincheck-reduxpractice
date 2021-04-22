@@ -14,19 +14,20 @@ import LoadingComponent from './components/LoadingComponent'
 const LoginScreen = (props) => {
 
     const [isLoading,setIsLoading] = useState(false)
+    const loadingFn = () => setIsLoading(true)
+    const cancleLoadingFn = () => setIsLoading(false)
+    const dispatch = useDispatch()
 
     const screenStrings = strings.loginScreen
     const { formFields , formPlaceholders , inputTypes } = screenStrings
 
-    const dispatch = useDispatch()
-
     const onSubmit = async (values) =>{
-        setIsLoading(true)
+        loadingFn()
         try{
-            await dispatch(login(values.email,values.password, () => setIsLoading(false) ))
+            await dispatch(login(values.email,values.password,cancleLoadingFn))
         }catch(error){
-            setIsLoading(false)
-            Alert.alert('An Error Occurred!!',error.message,[{text:'Okay'}]);
+            cancleLoadingFn()
+            Alert.alert(screenStrings.alertBoxTitle,error.message,[{text:screenStrings.alertBoxButton}]);
         }
     };
 
