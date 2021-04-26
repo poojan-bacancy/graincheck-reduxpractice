@@ -1,21 +1,29 @@
-import { LOGIN, LOGOUT } from "../types";
+import { AUTHENTICATE, SET_DID_TRY_AL, LOGOUT } from "../types";
 
 
 const initialState = {
-    username : null,
-    token : null
+    userId : null,
+    token : null,
+    didTryAutoLogin : null
 }
 
 export default (state=initialState,action) => {
     switch(action.type){
-        case LOGIN:
+        case AUTHENTICATE:
             return{
-                username : action.username,
-                token : action.token
+                token : action.token,
+                userId : action.userId,
+                didTryAutoLogin : true
             }
         
         case LOGOUT : 
             return initialState
+
+        case SET_DID_TRY_AL :
+            return {
+                ...state,
+                didTryAutoLogin : true
+            }
         
         default : 
             return state;

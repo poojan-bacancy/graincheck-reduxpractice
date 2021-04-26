@@ -5,5 +5,7 @@ export default {
     placeholder : '#C7C7C7',
     input : '#0F0E0E',
     white : 'white',
-    error : 'red', 
+    error : 'red',
+    background : '#F2F4F9',
+    projectTileBg : '#EAEAEA' 
 }

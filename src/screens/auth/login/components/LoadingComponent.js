@@ -1,21 +1,11 @@
 import React from 'react'
 import colors from 'constants/colors'
-import { StyleSheet, ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 
 const LoadingComponent = () => {
     return (
-        <View style={styles.screen}>
-            <ActivityIndicator size={30} color={colors.primary} />
-        </View>
+        <ActivityIndicator size={30} color={colors.primary} />
     )
 }
 
 export default LoadingComponent
-
-const styles = StyleSheet.create({
-    screen: {
-        flex : 1,
-        justifyContent : 'center',
-        alignItems : 'center'
-    }
-})

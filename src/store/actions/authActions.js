@@ -1,4 +1,11 @@
-import { LOGIN, LOGOUT } from "../types";
+import  AsyncStorage  from "@react-native-community/async-storage";
+import { AUTHENTICATE, LOGOUT , SET_DID_TRY_AL } from "../types";
+
+export const authenticate = (token,userId) => {
+    return dispatch => {
+        dispatch({ type : AUTHENTICATE , token : token , userId : userId });
+    }
+}
 
 export const login = (email,password,callback) => {
     return async dispatch => {
@@ -22,8 +29,27 @@ export const login = (email,password,callback) => {
 
         const resData = await response.json();
         const token = resData.data.token
-        
-        
-        dispatch({ type : LOGIN , username : email , token : token })
+        const userId = resData.data.user._id
+
+        // console.log('UserId : ',userId)
+    
+        dispatch(authenticate(token,userId))
+        saveDataToStorage(token,userId)
     }
 } 
+
+export const logout = () => {
+    AsyncStorage.removeItem('userData');
+    return { type : LOGOUT }
+} 
+
+const saveDataToStorage = (token,userId) => {
+    AsyncStorage.setItem('userData',JSON.stringify({
+        token : token ,
+        userId : userId
+    }))
+}
+
+export const setDidTryAl = () => {
+    return { type : SET_DID_TRY_AL }
+}

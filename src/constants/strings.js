@@ -35,5 +35,19 @@ export default {
             invalidEmail : 'Invalid Email',
             invalidPassLength : 'Password should be minimum 6 characters'
         }
+    },
+    projectsScreen : {
+        title : 'Projects',
+        addProjectLink : '+ Add Project',
+        searchPlaceholder : 'Search project/task',
+        projectListTitle : 'Project List',
+        completedButtonLabel : 'Completed',
+        addProjectModal : {
+            title : '+ Add New Project',
+            namePlaceholder : 'Enter Project Name',
+            descriptionPlaceholder : 'Describe here...',
+            tagsPlaceholder : 'Enter tags',
+            addButton : '+ Add Project'
+        }
     }
 }

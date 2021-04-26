@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View , Keyboard, TouchableWithoutFeedback , Alert } from 'react-native'
+import { StyleSheet, Text, View , Keyboard, TouchableWithoutFeedback , Alert  } from 'react-native'
 import strings from 'constants/strings'
 import colors from 'constants/colors'
 import LoginHeader from './components/LoginHeader'
@@ -31,8 +31,6 @@ const LoginScreen = (props) => {
         }
     };
 
-    if(isLoading) return <LoadingComponent/>
-
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>            
             <View style={styles.screen}>
@@ -63,11 +61,13 @@ const LoginScreen = (props) => {
                     />
                     
                     <View style={styles.buttonContainer}>
-                        <CustomButton
+                        {isLoading
+                        ? <LoadingComponent/>
+                        : <CustomButton
                             onPress={props.handleSubmit(onSubmit)}
                             disabled={props.submitting}
                             buttonLabel={screenStrings.loginButtonLabel}
-                        />
+                        />}
                     </View>
 
                     <View style={styles.newUserLinkContainer}> 
