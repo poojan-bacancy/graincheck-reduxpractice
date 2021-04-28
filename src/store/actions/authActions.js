@@ -20,7 +20,9 @@ export const login = (email,password,callback) => {
                 password : password
             })
         })
+
         callback();
+        
         if(!response.ok){
             const errorResData = await response.json()
             let message = errorResData.message
@@ -28,10 +30,9 @@ export const login = (email,password,callback) => {
         }
 
         const resData = await response.json();
+        console.log(resData)
         const token = resData.data.token
         const userId = resData.data.user._id
-
-        // console.log('UserId : ',userId)
     
         dispatch(authenticate(token,userId))
         saveDataToStorage(token,userId)

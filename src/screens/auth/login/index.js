@@ -9,7 +9,7 @@ import CustomButton from 'globalcomponents/CustomButton'
 import { required , email , password} from './validation'
 import { useDispatch } from 'react-redux';
 import { login } from 'store/actions/authActions'
-import LoadingComponent from './components/LoadingComponent'
+import LoadingComponent from 'globalcomponents/LoadingComponent'
 
 const LoginScreen = (props) => {
 

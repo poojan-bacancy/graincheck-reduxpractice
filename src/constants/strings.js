@@ -48,6 +48,9 @@ export default {
             descriptionPlaceholder : 'Describe here...',
             tagsPlaceholder : 'Enter tags',
             addButton : '+ Add Project'
+        },
+        compProjectModal : {
+            title : 'Completed Projects'
         }
     }
 }

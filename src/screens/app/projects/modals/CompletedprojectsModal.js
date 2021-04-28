@@ -1,14 +1,54 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import Modal from 'react-native-modal';
+import colors from 'constants/colors';
+import strings from 'constants/strings';
+import CloseModalButton from '../components/CloseModalButton';
 
-const CompletedprojectsModal = (props) => {
+const CompletedProjectsModal = (props) => {
+
+    const modalStrings = strings.projectsScreen.compProjectModal
+
     return (
-        <View>
-            <Text></Text>
-        </View>
+        <Modal 
+            style={styles.modal}
+            isVisible={props.isVisible}
+            animationIn="slideInUp"
+            animationOut="slideOutDown"
+            onBackdropPress={props.closeModal}
+            useNativeDriverForBackdrop={true}
+        >
+            <View style={styles.modalBox}>
+                <View style={styles.modalTitleContainer}>
+                    <Text style={styles.modalTitle}>{modalStrings.title}</Text>
+                    <CloseModalButton onPress={props.closeModal} />
+                </View>
+            </View>
+        </Modal>
     )
 }
 
-export default CompletedprojectsModal
+export default CompletedProjectsModal
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    modal : {
+        justifyContent : 'flex-end',
+        marginHorizontal : 20,
+    },
+    modalBox : {
+        height : 350,
+        borderRadius: 8,
+        backgroundColor : colors.white,
+        paddingHorizontal : 15,
+        paddingVertical : 20
+    },
+    modalTitleContainer : {
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'space-between'
+    },
+    modalTitle : {
+        fontSize : 20,
+        fontWeight : '700'
+    },
+})

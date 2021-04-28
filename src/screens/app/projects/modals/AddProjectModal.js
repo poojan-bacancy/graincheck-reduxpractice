@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import Modal from 'react-native-modal';
@@ -6,6 +6,7 @@ import colors from 'constants/colors';
 import strings from 'constants/strings';
 import CustomButton from 'globalcomponents/CustomButton'
 import CloseModalButton from '../components/CloseModalButton';
+import LoadingComponent from 'globalcomponents/LoadingComponent'
 import FormInput from '../components/FormInput';
 import { useDispatch } from 'react-redux'
 import { addProject } from 'store/actions/projectsActions'
@@ -16,10 +17,17 @@ const AddProjectModal = (props) => {
 
     const dispatch = useDispatch()
 
+    const [isLoading,setIsLoading] = useState(false)
+
     const onSubmit = async (values) => {
+        setIsLoading(true)
+        console.log(values)
         try {
-            await dispatch(addProject(values.projectName,values.projectDescription))    
+            await dispatch(addProject(values.projectName,values.projectDescription))
+            setIsLoading(false)
+            props.closeModal()    
         } catch (error) {
+            setIsLoading(false)
             console.log(error)
         }
        
@@ -52,19 +60,22 @@ const AddProjectModal = (props) => {
                     textAlignVertical = "top"
                     placeholder={modalStrings.descriptionPlaceholder}
                 />
-                <FieldArray
+                {/* <FieldArray
                     name={'projectTags'}
                     placeholder={modalStrings.tagsPlaceholder}
                     component={FormInput}
-                />
+                /> */}
 
 
                 <View style={styles.buttonContainer}>
-                    <CustomButton
-                        onPress={props.handleSubmit(onSubmit)}
-                        buttonLabel={modalStrings.addButton}                    
-                    />
+                    {isLoading
+                        ? <LoadingComponent/>
+                        : <CustomButton
+                            onPress={props.handleSubmit(onSubmit)}
+                            buttonLabel={modalStrings.addButton} />
+                    }
                 </View>
+
             </View>
         </Modal>
     )

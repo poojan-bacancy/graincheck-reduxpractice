@@ -24,9 +24,13 @@ const FormInput = (props) => {
         <View>
             <TextInput
                 ref={inputRef}
+                value={props.input.value}
                 scrollEnabled={props.multiline}
                 onSubmitEditing={(term) => addTagHandler(term)}
                 style={inptStyle}
+                onChangeText={props.input.onChange}
+                onFocus={props.input.onFocus}
+                onBlur={props.input.onBlur}
                 placeholder={props.placeholder}
                 placeholderTextColor={colors.inputLabel}
                 multiline={props.multiline}

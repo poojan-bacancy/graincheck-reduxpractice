@@ -3,18 +3,18 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import colors from '../../../../constants/colors'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const ProjectTile = (props) => {
+const ProjectTile = ({project,onComplete}) => {
     return (
         <View style={styles.projectTile}>
 
             <View style={styles.dateTitleContainer}> 
                 
                 <View>
-                    <Text style={styles.date}>{props.date}</Text>
-                    <Text style={styles.title}>{props.title}</Text>
+                    <Text style={styles.date}>{project.createdAt}</Text>
+                    <Text style={styles.title}>{project.title}</Text>
                 </View>
 
-                <TouchableOpacity>
+                <TouchableOpacity activeOpacity={0.7} onPress={onComplete.bind(this,project._id)}>
                     <Ionicons 
                         name="md-checkmark-done-sharp" 
                         size={40}
@@ -25,7 +25,7 @@ const ProjectTile = (props) => {
             </View>
 
             <View style={styles.descriptionContainer}>
-                <Text style={styles.description}>{props.description}</Text>
+                <Text style={styles.description}>{project.description}</Text>
             </View>
             
         </View>
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     projectTile : {
         backgroundColor : colors.projectTileBg,
         borderRadius : 8,
-        padding : 20
+        padding : 20,
+        marginVertical : 10
     },
     dateTitleContainer : {
         flexDirection : 'row',
