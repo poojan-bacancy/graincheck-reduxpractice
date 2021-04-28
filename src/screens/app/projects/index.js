@@ -21,7 +21,6 @@ const ProjectsScreen = (props) => {
     const dispatch = useDispatch()
 
     const projects = useSelector( state => state.projects.projects )
-    // console.log("screen",projects)
 
     const [isAddProjectModalVisible,setIsAddProjectModalVisible] = useState(false)
     const closeAddProjectModal = () => setIsAddProjectModalVisible(false)
@@ -47,16 +46,19 @@ const ProjectsScreen = (props) => {
         }
     }
 
-    useEffect( async () => {
+    const loadProjectsFn = async () => {
         try {
-            await dispatch(loadProjects(1))
+            await dispatch(loadProjects())
         } catch (error) {
             console.log(error)
         }
-    }, [])
+    }
 
-    return (
-       
+    useEffect( () => {
+        loadProjectsFn()
+    }, []) 
+
+    return ( 
         <View style={styles.screen}>
             
             <ProjectsHeader
@@ -75,7 +77,11 @@ const ProjectsScreen = (props) => {
                 />
             </View>
 
-            <ProjectList data={projects} onComplete={completeProjectFn} />
+            <ProjectList 
+                data={projects} 
+                onComplete={completeProjectFn}
+                onEndReached={loadProjectsFn}  
+            />
 
             <AddProjectModal
                 isVisible={isAddProjectModalVisible}
@@ -86,9 +92,7 @@ const ProjectsScreen = (props) => {
                 closeModal={closeCompProjectModal}
                 onDelete={deleteProjectFn}
             />
-
-        </View>
-        
+        </View>   
     )
 }
 

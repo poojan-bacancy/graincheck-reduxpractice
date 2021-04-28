@@ -38,9 +38,11 @@ export const addProject = (name,description) => {
 }
 
 
-export const loadProjects = (pageNo) => {
+export const loadProjects = () => {
     return async (dispatch,getState) => {
         const token = getState().auth.token
+        const pageNo = getState().projects.pageNo
+
         const response = await fetch(fetchProjectsUrl(pageNo),{
             method : 'GET',
             headers : {
@@ -78,7 +80,7 @@ export const loadCompletedProjects = () => {
             throw new Error(message);
         }
         const resData = await response.json();
-        console.log(resData)
+        //  console.log(resData)
     }
 }
 

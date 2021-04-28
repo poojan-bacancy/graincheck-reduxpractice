@@ -10,7 +10,7 @@ const ProjectList = (props) => {
             style={styles.projectList}
             data={props.data}
             renderItem={ (item) => <ProjectTile onComplete={props.onComplete} project={item.item} key={item.index} />}
-            // onEndReached={props.addProjects}
+            onEndReached={props.onEndReached}
         />
     )
 }
