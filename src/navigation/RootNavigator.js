@@ -1,9 +1,10 @@
 import React from 'react'
-
 import { NavigationContainer } from '@react-navigation/native'
-import { useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
+
 import AuthNavigator from './AuthNavigator'
 import AppNavigator from './AppNavigator'
+
 import StartupScreen from '../screens/StartupScreen'
 
 const RootNavigator = () => {

@@ -1,6 +1,5 @@
 import { AUTHENTICATE, SET_DID_TRY_AL, LOGOUT } from "../types";
 
-
 const initialState = {
     userId : null,
     token : null,
@@ -9,6 +8,7 @@ const initialState = {
 
 export default (state=initialState,action) => {
     switch(action.type){
+        
         case AUTHENTICATE:
             return{
                 token : action.token,

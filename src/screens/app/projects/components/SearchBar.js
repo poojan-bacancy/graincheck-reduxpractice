@@ -14,7 +14,10 @@ const SearchBar = (props) => {
             />
             <TextInput
                 style={styles.input}
-                onSubmitEditing={props.onSearch}
+                value={props.value}
+                onFocus={props.onFocus}
+                onBlur={props.onBlur}
+                onChangeText={props.onChangeText}
                 placeholder={strings.projectsScreen.searchPlaceholder}
                 placeholderTextColor={colors.placeholder}
             />

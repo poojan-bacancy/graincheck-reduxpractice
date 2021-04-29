@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import colors from '../../../../constants/colors'
-import SearchBar from './SearchBar'
 
 const ProjectsHeader = (props) => {
     return (
@@ -17,9 +16,7 @@ const ProjectsHeader = (props) => {
 
             </View>
 
-            <SearchBar
-                onSearch={props.onSearch}
-            />
+            {props.children}
 
         </View>
     )

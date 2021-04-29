@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
         backgroundColor : colors.white,
         flexDirection : 'row',
         paddingHorizontal : 5,
-        paddingVertical : 2,
+        paddingVertical : 3,
         borderRadius : 15
     },
     completedButtonText : {
         fontWeight : '500',
+        fontSize : 16,
         marginHorizontal : 3,
     }
 })

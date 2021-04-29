@@ -20,7 +20,6 @@ export const login = (email,password,callback) => {
                 password : password
             })
         })
-
         callback();
         
         if(!response.ok){
@@ -28,9 +27,8 @@ export const login = (email,password,callback) => {
             let message = errorResData.message
             throw new Error(message);
         }
-
         const resData = await response.json();
-        console.log(resData)
+        
         const token = resData.data.token
         const userId = resData.data.user._id
     

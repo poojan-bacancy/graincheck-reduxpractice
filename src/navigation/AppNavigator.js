@@ -1,7 +1,8 @@
 import React from 'react'
-
 import { createStackNavigator } from '@react-navigation/stack'
+
 import strings from 'constants/strings.js'
+
 import ProjectsScreen from 'screens/app/projects'
 
 const AppStack = createStackNavigator();

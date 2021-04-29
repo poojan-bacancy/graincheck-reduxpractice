@@ -9,7 +9,8 @@ import {
     COMPLETE_PROJECT , 
     DELETE_PROJECT , 
     LOAD_PROJECTS , 
-    LOAD_COMPLETED_PROJECTS } from '../types'
+    LOAD_COMPLETED_PROJECTS, 
+    LOAD_MORE_PROJECTS} from '../types'
 
 export const addProject = (name,description) => {
     return async (dispatch,getState) => {
@@ -33,17 +34,19 @@ export const addProject = (name,description) => {
             throw new Error(message);
         }
         const resData = await response.json();
-        console.log(resData)
+
+        const project = resData.data.project
+        dispatch({ type : ADD_PROJECT , project : project })
     }
 }
 
 
-export const loadProjects = () => {
+export const loadProjects = (pageNo,searchTerm="") => {
     return async (dispatch,getState) => {
+        
         const token = getState().auth.token
-        const pageNo = getState().projects.pageNo
 
-        const response = await fetch(fetchProjectsUrl(pageNo),{
+        const response = await fetch(fetchProjectsUrl(pageNo,searchTerm),{
             method : 'GET',
             headers : {
                 'Content-Type' : 'application/json',
@@ -57,8 +60,12 @@ export const loadProjects = () => {
             throw new Error(message);
         }
         const resData = await response.json();
-        // console.log(resData)
-        dispatch({ type : LOAD_PROJECTS , projects : resData.data.projects })
+        
+        const ACTION = pageNo === 1 
+            ? LOAD_PROJECTS
+            : LOAD_MORE_PROJECTS  
+
+        dispatch({ type : ACTION , projects : resData.data.projects })
     }
 } 
 
@@ -80,7 +87,8 @@ export const loadCompletedProjects = () => {
             throw new Error(message);
         }
         const resData = await response.json();
-        //  console.log(resData)
+        console.log(resData)
+        dispatch({ type : LOAD_COMPLETED_PROJECTS , projects : resData.data.projects })
     }
 }
 
@@ -104,6 +112,8 @@ export const completeProject = (id) => {
         }
         const resData = await response.json();
         console.log(resData)
+
+        dispatch({ type : COMPLETE_PROJECT , id : id})
     }
 }
 
@@ -126,5 +136,6 @@ export const deleteProject = (id) => {
         }
         const resData = await response.json();
         console.log(resData)
+        dispatch({ type : DELETE_PROJECT , id : id})
     }
 }

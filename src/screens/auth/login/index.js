@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View , Keyboard, TouchableWithoutFeedback , Alert  } from 'react-native'
+import { Field, reduxForm } from 'redux-form';
+import { useDispatch } from 'react-redux';
+
 import strings from 'constants/strings'
 import colors from 'constants/colors'
+
 import LoginHeader from './components/LoginHeader'
 import FormInput from './components/FormInput'
-import { Field, reduxForm } from 'redux-form';
 import CustomButton from 'globalcomponents/CustomButton'
-import { required , email , password} from './validation'
-import { useDispatch } from 'react-redux';
-import { login } from 'store/actions/authActions'
 import LoadingComponent from 'globalcomponents/LoadingComponent'
+
+import { required , email , password } from './validations'
+
+import { login } from 'store/actions/authActions'
+
 
 const LoginScreen = (props) => {
 
