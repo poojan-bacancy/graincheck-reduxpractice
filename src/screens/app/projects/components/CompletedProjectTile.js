@@ -1,14 +1,18 @@
 import React from 'react'
 import { StyleSheet, Text, View , TouchableOpacity } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import moment from 'moment'
 import colors from 'constants/colors'
 
 const CompletedProjectTile = ({project,onDelete}) => {
+
+    const date = moment(project.createdAt,'YYYY-MM-DD').format('MMMM DD,YYYY')
+
     return (
         <View style={styles.projectTile}>
  
             <View>
-                <Text style={styles.date}>{project.createdAt}</Text>
+                <Text style={styles.date}>{date}</Text>
                 <Text style={styles.title}>{project.title}</Text>
             </View>
 

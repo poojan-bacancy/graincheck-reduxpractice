@@ -13,7 +13,8 @@ module.exports = {
           globalStyles : './src/globalStyles',
           navigation : './src/navigation',
           screens : './src/screens',
-          store : './src/store'
+          store : './src/store',
+          validations : './src/validations'
         }
       }
     ]

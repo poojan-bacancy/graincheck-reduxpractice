@@ -1,16 +1,20 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import colors from '../../../../constants/colors'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import moment from 'moment'
+import colors from '../../../../constants/colors'
 
 const ProjectTile = ({project,onComplete}) => {
+
+    const date = moment(project.createdAt,'YYYY-MM-DD').format('MMMM DD,YYYY')
+
     return (
         <View style={styles.projectTile}>
 
             <View style={styles.dateTitleContainer}> 
                 
                 <View>
-                    <Text style={styles.date}>{project.createdAt}</Text>
+                    <Text style={styles.date}>{date}</Text>
                     <Text style={styles.title}>{project.title}</Text>
                 </View>
 
@@ -49,6 +53,7 @@ const styles = StyleSheet.create({
     date : {
         color : colors.inputLabel,
         marginVertical : 5,
+        fontSize : 15
     },
     title : {
         fontSize: 22,

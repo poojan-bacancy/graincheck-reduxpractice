@@ -28,7 +28,7 @@ export default (state=initialState,action) => {
                 projects : state.projects.filter(
                     project => project._id !== action.id
                 ),
-                completedProjects : state.completedProjects.concat(completedProject)
+                completedProjects : [ completedProject, ...state.completedProjects ]
             }
         
         case DELETE_PROJECT :

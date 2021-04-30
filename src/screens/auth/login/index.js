@@ -11,7 +11,7 @@ import FormInput from './components/FormInput'
 import CustomButton from 'globalcomponents/CustomButton'
 import LoadingComponent from 'globalcomponents/LoadingComponent'
 
-import { required , email , password } from './validations'
+import { required , email , password } from 'validations'
 
 import { login } from 'store/actions/authActions'
 

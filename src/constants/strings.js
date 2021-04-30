@@ -1,4 +1,5 @@
 export default {
+    noDataFound : 'No data found!',
     screens : {
         auth : {
             login : 'Login',
@@ -33,7 +34,7 @@ export default {
         errors : {
             require : 'This field is required',
             invalidEmail : 'Invalid Email',
-            invalidPassLength : 'Password should be minimum 6 characters'
+            invalidPassLength : 'Password should be minimum 6 characters and atleast contains one number and letter'
         }
     },
     projectsScreen : {

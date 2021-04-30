@@ -12,7 +12,7 @@ import {
     LOAD_COMPLETED_PROJECTS, 
     LOAD_MORE_PROJECTS} from '../types'
 
-export const addProject = (name,description) => {
+export const addProject = (name,description,tags) => {
     return async (dispatch,getState) => {
         const token = getState().auth.token
         const response = await fetch(createProjectUrl,{
@@ -24,7 +24,7 @@ export const addProject = (name,description) => {
             body : JSON.stringify({
                 title : name,
                 description,
-                tags : []
+                tags
             })
         })
         if(!response.ok){
@@ -87,7 +87,7 @@ export const loadCompletedProjects = () => {
             throw new Error(message);
         }
         const resData = await response.json();
-        console.log(resData)
+        
         dispatch({ type : LOAD_COMPLETED_PROJECTS , projects : resData.data.projects })
     }
 }
@@ -95,7 +95,6 @@ export const loadCompletedProjects = () => {
 
 export const completeProject = (id) => {
     return async (dispatch,getState) => {
-        console.log(completeProjectUrl(id))
         const token = getState().auth.token
         const response = await fetch(completeProjectUrl(id),{
             method : 'PUT',
@@ -108,10 +107,9 @@ export const completeProject = (id) => {
             const errorResData = await response.json()
             console.log(errorResData)
             let message = errorResData.message
-            throw new Error(message);
+            throw new Error(message)
         }
-        const resData = await response.json();
-        console.log(resData)
+        const resData = await response.json()
 
         dispatch({ type : COMPLETE_PROJECT , id : id})
     }
@@ -134,8 +132,8 @@ export const deleteProject = (id) => {
             let message = errorResData.message
             throw new Error(message);
         }
-        const resData = await response.json();
-        console.log(resData)
+        const resData = await response.json()
+        
         dispatch({ type : DELETE_PROJECT , id : id})
     }
 }

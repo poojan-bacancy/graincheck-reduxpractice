@@ -4,7 +4,7 @@ import colors from 'constants/colors'
 
 const FormInput = (props) => {
 
-    const { fields, meta } = props
+    const { meta : { touched , error } } = props
     const inputRef = useRef();
 
     const inptStyle = {
@@ -12,12 +12,10 @@ const FormInput = (props) => {
         height : props.multiline ? 100 : 50
     }    
 
-    const addTagHandler = (term) => {
-        
-        if(props.placeholder === 'Enter tags') {
-            fields.push({"name" : term})
-        }
-        inputRef.current.clear()
+    const isErrorVisible = () => {
+        return touched && error 
+            ? <Text style={styles.errorText}>{error}</Text>
+            : null
     }
 
     return (
@@ -26,7 +24,6 @@ const FormInput = (props) => {
                 ref={inputRef}
                 value={props.input.value}
                 scrollEnabled={props.multiline}
-                onSubmitEditing={(term) => addTagHandler(term)}
                 style={inptStyle}
                 onChangeText={props.input.onChange}
                 onFocus={props.input.onFocus}
@@ -36,12 +33,7 @@ const FormInput = (props) => {
                 multiline={props.multiline}
                 textAlignVertical={props.textAlignVertical}
             />
-            {/* {   fields
-                ? fields.map((name,index) => {
-                    return <Text key={index} >{name}</Text>
-                } )
-                : null
-            } */}
+            {isErrorVisible()}
         </View>
     )
 }
@@ -56,5 +48,9 @@ const styles = StyleSheet.create({
         borderRadius : 8,
         marginTop :15,
         color : colors.input
+    },
+    errorText : {
+        marginTop : 5,
+        color : colors.error
     }
 })

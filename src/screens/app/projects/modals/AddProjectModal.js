@@ -1,78 +1,102 @@
 import React , { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Field, FieldArray, reduxForm } from 'redux-form';
+import { StyleSheet, Text, View ,Keyboard, TextInput , ToastAndroid } from 'react-native'
+import { Field, reduxForm } from 'redux-form';
+import { useDispatch } from 'react-redux'
 import Modal from 'react-native-modal';
+
 import colors from 'constants/colors';
 import strings from 'constants/strings';
+
 import CustomButton from 'globalcomponents/CustomButton'
-import CloseModalButton from '../components/CloseModalButton';
 import LoadingComponent from 'globalcomponents/LoadingComponent'
+import CloseButton from '../components/CloseButton';
 import FormInput from '../components/FormInput';
-import { useDispatch } from 'react-redux'
+import TagTile from '../components/TagTile'
+
 import { addProject } from 'store/actions/projectsActions'
+import { required } from 'validations'
 
 const AddProjectModal = (props) => {
 
+    const { reset } = props
+    const [tags,setTags] = useState([])
+    const [isLoading,setIsLoading] = useState(false)
     const modalStrings = strings.projectsScreen.addProjectModal
-
     const dispatch = useDispatch()
 
-    const [isLoading,setIsLoading] = useState(false)
+    const showToast = message => ToastAndroid.show(message.toString(),ToastAndroid.SHORT)
+
+    const addTag = (event) => setTags( prevState => [...prevState,event.nativeEvent.text])    
+
+    const removeTag = tag => setTags( tags.filter( tg => tg !== tag) )
 
     const onSubmit = async (values) => {
         setIsLoading(true)
-        console.log(values)
+        Keyboard.dismiss()
         try {
-            await dispatch(addProject(values.projectName,values.projectDescription))
+            await dispatch(addProject(values.projectName,values.projectDescription,tags))
             setIsLoading(false)
-            props.closeModal()    
+            props.closeModal() 
+            reset()   
         } catch (error) {
             setIsLoading(false)
-            console.log(error)
+            showToast(error)
         }
-       
     }
 
     return (
         <Modal 
             style={styles.modal}
+            backdropColor={colors.modalBg}
+            backdropOpacity={0.4}
             isVisible={props.isVisible}
             animationIn="slideInUp"
             animationOut="slideOutDown"
             onBackdropPress={props.closeModal}
+            onModalHide={() => setTags([])}
             useNativeDriverForBackdrop={true}
         >
             <View style={styles.modalBox}>
+
                 <View style={styles.modalTitleContainer}>
                     <Text style={styles.modalTitle}>{modalStrings.title}</Text>
-                    <CloseModalButton onPress={props.closeModal} />
+                    <CloseButton onPress={props.closeModal} />
                 </View>
                 
                 <Field
                     name={'projectName'}
                     placeholder={modalStrings.namePlaceholder}
                     component={FormInput}
+                    validate={[required]}
                 />
+                
                 <Field
                     name={'projectDescription'}
                     component={FormInput}
                     multiline={true}
+                    validate={[required]}
                     textAlignVertical = "top"
                     placeholder={modalStrings.descriptionPlaceholder}
                 />
-                {/* <FieldArray
-                    name={'projectTags'}
-                    placeholder={modalStrings.tagsPlaceholder}
-                    component={FormInput}
-                /> */}
 
+                <TextInput
+                    style={styles.tagInput}
+                    onSubmitEditing={addTag}
+                    placeholder={modalStrings.tagsPlaceholder}
+                    placeholderTextColor={colors.inputLabel}
+                />
+
+                <View style={styles.tagsContainer}>
+                    {tags.map( (tag,index) => <TagTile key={index} name={tag} remove={removeTag} /> )}
+                </View>
 
                 <View style={styles.buttonContainer}>
                     {isLoading
                         ? <LoadingComponent/>
                         : <CustomButton
                             onPress={props.handleSubmit(onSubmit)}
-                            buttonLabel={modalStrings.addButton} />
+                            buttonLabel={modalStrings.addButton} 
+                        />
                     }
                 </View>
 
@@ -102,23 +126,21 @@ const styles = StyleSheet.create({
         fontSize : 20,
         fontWeight : '700'
     },
-    nameInput : {
-        borderWidth : 1,
-        borderColor : colors.placeholder,
-        borderRadius : 8,
-        marginTop :15,
-        color : colors.input
-    },
-    descriptionInput : {
-        borderWidth : 1,
-        borderColor : colors.placeholder,
-        borderRadius : 8,
-        marginTop :15,
-        color : colors.input,
-        height : 100
-    },
     buttonContainer : {
         marginHorizontal : 30,
         marginTop : 20
+    },
+    tagInput : {
+        borderColor : colors.placeholder,
+        borderWidth : 1,
+        borderRadius: 8,
+        marginVertical : 15,
+        color : colors.input
+    },
+    tagsContainer : {
+        flexWrap : 'wrap',
+        flexDirection : 'row',
+        justifyContent : 'flex-start',
+        alignItems : 'center'
     }
 })
