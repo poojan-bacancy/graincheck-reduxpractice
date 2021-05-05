@@ -10,9 +10,8 @@ const NoDataFoundComponent = ({size}) => {
         fontSize : size
     }
 
-    return (
-        <Text style={textStyle}>{strings.noDataFound}</Text>
-    )
+    return <Text style={textStyle}>{strings.noDataFound}</Text>
+
 }
 
 export default NoDataFoundComponent

@@ -3,47 +3,42 @@ import { StyleSheet, Text, View , TextInput  } from 'react-native'
 import colors from 'constants/colors'
 import ShowHidePassComponent from "./ShowHidePassComponent";
 
-const FormInput = (props) => {
+const FormInput = ({ input , meta , fieldType , onForgetPassPress , forgotPassText , label , placeholder }) => {
 
-    const { meta : { touched , error } } = props;
+    const { touched , error }  = meta;
 
     const [isPasswordVisible,setIsPasswordVisible] = useState(false)
 
-    const eyePressHandler = () => {
-        setIsPasswordVisible(prevState => !prevState)
-    }
+    const eyePressHandler = () => setIsPasswordVisible(prevState => !prevState)
 
     const isEyeIconVisible = () => {
-        return props.fieldType === "password" 
+        return fieldType === "password" 
         ?<ShowHidePassComponent isVisible={isPasswordVisible} onPress={eyePressHandler} />
         :null 
     }
 
     const isErrorVisible = () => {
-        return touched && error 
-            ? <Text style={styles.errorText}>{error}</Text>
-            : null
+        return touched && error ? <Text style={styles.errorText}>{error}</Text> : null
     }
 
     const isForgotPassLinkVisible = () => {
-        return props.fieldType === "password" 
-        ? <Text style={styles.forgotPassText} onPress={props.onForgetPassPress}>{props.forgotPassText}</Text>
+        return fieldType === "password" 
+        ? <Text style={styles.forgotPassText} onPress={onForgetPassPress}>{forgotPassText}</Text>
         : null
     }
 
     return (
         <View style={styles.formInputContainer} >
-            <Text style={styles.inputLabel}>{props.label}</Text>
+            <Text style={styles.inputLabel}>{label}</Text>
             <View style={styles.textInputContainer}>
                 <TextInput
                     style={styles.input} 
-                    value={props.input.value}
-                    secureTextEntry={ props.fieldType === 'password' && !isPasswordVisible }
-                    placeholder={props.placeholder}
+                    secureTextEntry={ fieldType === 'password' && !isPasswordVisible }
+                    placeholder={placeholder}
                     placeholderTextColor={colors.placeholder}
-                    onChangeText={props.input.onChange}
-                    onFocus={props.input.onFocus}
-                    onBlur={props.input.onBlur}
+                    onChangeText={input.onChange}
+                    onFocus={input.onFocus}
+                    onBlur={input.onBlur}
                 />
                 {isEyeIconVisible()}                
             </View>

@@ -26,7 +26,7 @@ const LoginScreen = (props) => {
     const screenStrings = strings.loginScreen
     const { formFields , formPlaceholders , inputTypes } = screenStrings
 
-    const onSubmit = async (values) =>{
+    const onSubmit = async (values) => {
         loadingFn()
         try{
             await dispatch(login(values.email,values.password,cancleLoadingFn))
@@ -50,19 +50,20 @@ const LoginScreen = (props) => {
                     <Field
                         name={inputTypes.email}
                         component={FormInput}
+                        validate={[required,email]}
                         label={formFields.username}
                         fieldType={inputTypes.email}
                         placeholder={formPlaceholders.username}
-                        validate={[required,email]}
                     />
                     <Field
                         name={inputTypes.password}
                         component={FormInput}
+                        validate={[required,password]}
                         label={formFields.password}
                         fieldType={inputTypes.password}
                         placeholder={formPlaceholders.password}
                         forgotPassText={screenStrings.forgotPassLink}
-                        validate={[required,password]}
+                        
                     />
                     
                     <View style={styles.buttonContainer}>

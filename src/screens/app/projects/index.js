@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from 'react'
 import { useSelector , useDispatch } from 'react-redux'
-import { StyleSheet, Text, TouchableOpacity, View , ToastAndroid } from 'react-native'
+import { StyleSheet, Text, View , ToastAndroid } from 'react-native'
 
 import colors from 'constants/colors'
 import strings from 'constants/strings'
@@ -35,6 +35,7 @@ const ProjectsScreen = (props) => {
     const closeCompProjectModal = () => setIsCompProjectModalVisible(false)
     const openCompProjectModal = () => setIsCompProjectModalVisible(true)
 
+    // whenever error occurs
     const showToast = message => ToastAndroid.show(message.toString(),ToastAndroid.SHORT)
 
     const completeProjectFn = async (id) => {
@@ -67,7 +68,7 @@ const ProjectsScreen = (props) => {
 
     const renderProjectsList = () => {
         return projects.length === 0 
-            ? <View style={styles.center}><NoDataFoundComponent size={22} /></View>
+            ? <View style={styles.center}><NoDataFoundComponent size={22}/></View>
             : <ProjectList 
                 data={projects} 
                 onComplete={completeProjectFn}
@@ -86,11 +87,10 @@ const ProjectsScreen = (props) => {
 
     return ( 
         <View style={styles.screen}>
-
-            <TouchableOpacity onPress={logoutFn}><Text>Logout</Text></TouchableOpacity>
             
             <ProjectsHeader
                 title={screenStrings.title}
+                onLogout={logoutFn}
                 addProjectText={screenStrings.addProjectLink}
                 onAddProject={openAddProjectModal}
             >
@@ -117,7 +117,7 @@ const ProjectsScreen = (props) => {
                 isVisible={isCompProjectModalVisible}
                 closeModal={closeCompProjectModal}
                 onDelete={deleteProjectFn}
-            />
+            /> 
         </View>   
     )
 }
@@ -127,7 +127,7 @@ export default ProjectsScreen
 const styles = StyleSheet.create({
     screen : {
         flex : 1,
-        backgroundColor : colors.background
+        backgroundColor : colors.backgroundColor
     },
     projectListTitleContainer : {
         flexDirection : 'row',
@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
         fontSize : 18,
         fontWeight : '700'
     },
-    
     center : {
         flex : 1,
         justifyContent : 'center',

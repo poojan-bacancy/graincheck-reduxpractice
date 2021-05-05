@@ -1,5 +1,6 @@
 import React from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet} from 'react-native'
+import colors from 'constants/colors'
 import ProjectTile from './ProjectTile'
 
 const ProjectList = (props) => {
@@ -23,6 +24,7 @@ export default ProjectList
 
 const styles = StyleSheet.create({
     projectList : {
-        marginHorizontal : 15
+        marginHorizontal : 15,
+        color : colors.background
     }
 })

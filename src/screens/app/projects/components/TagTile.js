@@ -1,13 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import colors from '../../../../constants/colors'
+import colors from 'constants/colors'
 import CloseButton from './CloseButton'
 
 const TagTile = ({name,remove}) => {
     return (
         <View style={styles.tag}>
             <Text style={styles.tagName}>{name}</Text>
-            <CloseButton size={15} onPress={remove.bind(this,name)} />
+            <CloseButton size={20} onPress={remove.bind(this,name)} />
         </View>
     )
 }

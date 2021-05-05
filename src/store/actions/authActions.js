@@ -11,6 +11,11 @@ export const authenticate = (token,userId) => {
     }
 }
 
+const throwErrorFn = async (response) => {
+    const errorResData = await response.json()
+    throw new Error(errorResData.message);
+}
+
 export const login = (email,password,callback) => {
     return async dispatch => {
         const response = await fetch(loginUrl,
@@ -20,8 +25,8 @@ export const login = (email,password,callback) => {
                 'Content-Type' : 'application/json'
             },
             body : JSON.stringify({
-                email : email,
-                password : password,
+                email,
+                password,
                 deviceToken : {
                     deviceTokenString :deviceToken,
                     os : Platform.OS
@@ -29,14 +34,10 @@ export const login = (email,password,callback) => {
             })
         })
         callback();
-        
         if(!response.ok){
-            const errorResData = await response.json()
-            let message = errorResData.message
-            throw new Error(message);
+            throwErrorFn(response)
         }
         const resData = await response.json();
-        
         const token = resData.data.token
         const userId = resData.data.user._id
     
@@ -62,15 +63,9 @@ export const logout = () => {
                 }
             })
         })
-        
         if(!response.ok){
-            const errorResData = await response.json()
-            let message = errorResData.message
-            throw new Error(message);
+            throwErrorFn(response)
         }
-        const resData = await response.json();
-        console.log(resData)
-    
         AsyncStorage.removeItem('userData');
         dispatch({ type : LOGOUT })
     }

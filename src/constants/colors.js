@@ -7,6 +7,6 @@ export default {
     white : 'white',
     error : 'red',
     background : '#F2F4F9',
-    projectTileBg : '#EAEAEA',
+    projectTileBg : '#DCDCDC',
     modalBg : '#0F0E0E' 
 }

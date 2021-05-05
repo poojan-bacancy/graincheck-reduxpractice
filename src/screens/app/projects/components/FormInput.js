@@ -5,7 +5,6 @@ import colors from 'constants/colors'
 const FormInput = (props) => {
 
     const { meta : { touched , error } } = props
-    const inputRef = useRef();
 
     const inptStyle = {
         ...styles.input,
@@ -21,8 +20,6 @@ const FormInput = (props) => {
     return (
         <View>
             <TextInput
-                ref={inputRef}
-                value={props.input.value}
                 scrollEnabled={props.multiline}
                 style={inptStyle}
                 onChangeText={props.input.onChange}

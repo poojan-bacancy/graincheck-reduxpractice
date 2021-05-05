@@ -1,5 +1,6 @@
 const baseUrl = 'http://18.223.66.20:3000'
 
+// urls for different endpoints
 const projectEndPoint = baseUrl + '/project'
 const userEndPoint = baseUrl + '/user'
 
@@ -10,7 +11,7 @@ export const logoutUrl = userEndPoint + '/logout'
 //project
 export const createProjectUrl = projectEndPoint + '/create'
 
-export const fetchProjectsUrl = (pageNo,searchTerm="",perPage=5) => {
+export const fetchProjectsUrl = (pageNo,searchTerm,perPage=5) => {
     const query1 = `perPage=${perPage}`
     const query2 = `pageNo=${pageNo}`
     const query3 = `title=${searchTerm}`
@@ -31,3 +32,4 @@ export const deleteProjectUrl = (id) => {
     const query1 = `/${id}`
     return projectEndPoint + '/remove'+ query1
 }
+

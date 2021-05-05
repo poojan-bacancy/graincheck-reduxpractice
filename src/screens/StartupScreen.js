@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
-import colors from 'constants/colors'
-import AsyncStorage from '@react-native-community/async-storage'
-import { authenticate , setDidTryAl } from 'store/actions/authActions'
 import { useDispatch } from 'react-redux'
+import AsyncStorage from '@react-native-community/async-storage'
+
+import colors from 'constants/colors'
+
+import { authenticate , setDidTryAl } from 'store/actions/authActions'
+
 import LoadingComponent from 'globalcomponents/LoadingComponent'
 
 const StartupScreen = () => {

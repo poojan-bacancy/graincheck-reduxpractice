@@ -65,16 +65,16 @@ const AddProjectModal = (props) => {
                 
                 <Field
                     name={'projectName'}
-                    placeholder={modalStrings.namePlaceholder}
                     component={FormInput}
                     validate={[required]}
+                    placeholder={modalStrings.namePlaceholder}
                 />
                 
                 <Field
                     name={'projectDescription'}
                     component={FormInput}
-                    multiline={true}
                     validate={[required]}
+                    multiline={true}
                     textAlignVertical = "top"
                     placeholder={modalStrings.descriptionPlaceholder}
                 />

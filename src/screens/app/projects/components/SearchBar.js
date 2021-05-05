@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
-import colors from '../../../../constants/colors'
-import strings from '../../../../constants/strings'
+import colors from 'constants/colors'
+import strings from 'constants/strings'
 
 const SearchBar = (props) => {
     return (
@@ -14,9 +14,6 @@ const SearchBar = (props) => {
             />
             <TextInput
                 style={styles.input}
-                value={props.value}
-                onFocus={props.onFocus}
-                onBlur={props.onBlur}
                 onChangeText={props.onChangeText}
                 placeholder={strings.projectsScreen.searchPlaceholder}
                 placeholderTextColor={colors.placeholder}
